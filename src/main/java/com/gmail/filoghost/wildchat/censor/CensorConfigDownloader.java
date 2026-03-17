@@ -30,7 +30,8 @@ package com.gmail.filoghost.wildchat.censor;
 
 import java.io.File;
 import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import java.nio.file.Files;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -51,7 +52,7 @@ public class CensorConfigDownloader {
 				Bukkit.getScheduler().runTaskAsynchronously(WildChat.plugin, () -> {
 					File configFile = CensorConfig.getFile();
 					try {
-						FileUtils.writeByteArrayToFile(configFile, data, false);
+						Files.write(configFile.toPath(), data);
 						try {
 							WildChat.censorConfig.init();
 						} catch (YamlerConfigurationException e) {
